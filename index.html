@@ -1,121 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <body>
-    <head>
+    <body>
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+            <title>3d Cube</title>
 
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-      <meta name="author" content="Andrea Caccia">
-      <meta name="google-site-verification" content="u0IXVdDTYkNHBncIS84p8s7MTaGbF4EBbjoI6rLXBWk" />
-      <meta name="robots" content="index, follow">
-      <title>3d Cube | Andrea Caccia Designer</title>
+            <style type="text/css">
+                * {
+                    margin: 0;
+                    padding: 0;
+                }
+                body {
+                    height: 100vh;
+                    width: 100%;
+                    font-family: sans-serif;
+                }
+                .wrapper {
+                    height: 100%;
+                    width: 100%;
+                    perspective: 1000px;
+                    perspective-origin: center center;
+                    background: #000;
+                }
+                .cube {
+                    width: 200px;
+                    height: 200px;
+                    position: relative;
+                    margin: 0 auto;
+                    top: calc(50% - 100px);
+                    animation: cubeRotate 10s infinite linear;
+                    transform-style: preserve-3d;
+                    transition: all 1s;
+                }
 
-      <!-- Social meta -->
+                .cube div {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid #fff;
+                    color: #fff;
+                    background: rgba(255, 255, 255, 0.1);
+                    font-size: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
-      <meta name="description" content="3d cube effect rotation using Css Transform property and animation" />
-      <link rel="canonical" href="http://www.andreacaccia.com" />
-      <meta property="og:title" content="3d Cube | Andrea Caccia Designer"/>
-      <meta property="og:description" content="3d cube effect rotation using Css Transform property and animation" />
-      <meta property="og:url" content="http://www.andreacaccia.com/demo/3dcube" />
-      <meta property="og:image" content="http://www.andreacaccia.com/assets/images/og-image.jpg" />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content="3d Cube | Andrea Caccia Designer" />
-      <meta name="twitter:description" content="3d cube effect rotation using Css Transform property and animation" />
+                .cube .front {
+                    transform: translateZ(100px);
+                    transition: all 1s;
+                }
+                .cube .back {
+                    transform: translateZ(-100px) rotateY(180deg);
+                    transition: all 1s;
+                }
+                .cube .top {
+                    transform: rotateX(90deg) translateZ(100px);
+                    transition: all 1s;
+                }
+                .cube .bottom {
+                    transform: rotateX(90deg) translateZ(-100px);
+                    transition: all 1s;
+                }
+                .cube .left {
+                    transform: rotateY(90deg) translateZ(-100px);
+                    transition: all 1s;
+                }
+                .cube .right {
+                    transform: rotateY(90deg) translateZ(100px);
+                    transition: all 1s;
+                }
 
-      <!-- Favicon -->
+                .cube:hover div {
+                    animation: cubeColor 10s infinite linear;
+                    background: transparent;
+                }
 
-      <link rel="apple-touch-icon" sizes="57x57" href="../../assets/images/favicon/apple-icon-57x57.png">
-      <link rel="apple-touch-icon" sizes="60x60" href="../../assets/images/favicon/apple-icon-60x60.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="../../assets/images/favicon/apple-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="76x76" href="../../assets/images/favicon/apple-icon-76x76.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="../../assets/images/favicon/apple-icon-114x114.png">
-      <link rel="apple-touch-icon" sizes="120x120" href="../../assets/images/favicon/apple-icon-120x120.png">
-      <link rel="apple-touch-icon" sizes="144x144" href="../../assets/images/favicon/apple-icon-144x144.png">
-      <link rel="apple-touch-icon" sizes="152x152" href="../../assets/images/favicon/apple-icon-152x152.png">
-      <link rel="apple-touch-icon" sizes="180x180" href="../../assets/images/favicon/apple-icon-180x180.png">
-      <link rel="icon" type="image/png" sizes="192x192"  href="../../assets/images/favicon/android-icon-192x192.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="96x96" href="../../assets/images/favicon/favicon-96x96.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon/favicon-16x16.png">
-      <link rel="manifest" href="assets/images/favicon/manifest.json">
-      <meta name="msapplication-TileColor" content="#000000">
-      <meta name="msapplication-TileImage" content="../../assets/images/favicon/ms-icon-144x144.png">
-      <meta name="theme-color" content="#000000">
+                .cube:hover .front {
+                    transform: translateZ(200px);
+                }
+                .cube:hover .back {
+                    transform: translateZ(-200px) rotateY(180deg);
+                }
+                .cube:hover .top {
+                    transform: rotateX(90deg) translateZ(200px);
+                }
+                .cube:hover .bottom {
+                    transform: rotateX(90deg) translateZ(-200px);
+                }
+                .cube:hover .left {
+                    transform: rotateY(90deg) translateZ(-200px);
+                }
+                .cube:hover .right {
+                    transform: rotateY(90deg) translateZ(200px);
+                }
 
-      <style type="text/css">
+                @keyframes cubeRotate {
+                    from {
+                        transform: rotateX(0deg) rotateY(0deg);
+                    }
+                    to {
+                        transform: rotateX(360deg) rotateY(360deg);
+                    }
+                }
 
-        * {margin: 0; padding: 0;}
-        body {height: 100vh; width: 100%; font-family: sans-serif;}
-        .wrapper {height: 100%; width: 100%; perspective: 1000px; perspective-origin: center center; background: #000;}
-        .cube {width: 200px; height: 200px; position: relative; margin: 0 auto; top: calc(50% - 100px); animation: cubeRotate 10s infinite linear; transform-style: preserve-3d; transition: all 1s;}
+                @keyframes cubeColor {
+                    0% {
+                        border-color: #d50000;
+                    }
+                    10% {
+                        border-color: #ff0000;
+                    }
+                    20% {
+                        border-color: #ff8c00;
+                    }
+                    30% {
+                        border-color: #fff200;
+                    }
+                    40% {
+                        border-color: #a5ff00;
+                    }
+                    50% {
+                        border-color: #00ff0c;
+                    }
+                    60% {
+                        border-color: #00ffed;
+                    }
+                    70% {
+                        border-color: #00b6ff;
+                    }
+                    80% {
+                        border-color: #0800ff;
+                    }
+                    90% {
+                        border-color: #aa00ff;
+                    }
+                    100% {
+                        border-color: #ff00c3;
+                    }
+                }
+            </style>
+        </head>
+    </body>
 
-        .cube div {position: absolute; width: 100%; height: 100%; border: 1px solid #fff; background: rgba(255,255,255,0.6); font-size: 40px;}
-
-        .cube .front {transform: translateZ(100px); transition: all 1s;}
-        .cube .back {transform: translateZ(-100px) rotateY(180deg); transition: all 1s;}
-        .cube .top {transform: rotateX(90deg) translateZ(100px); transition: all 1s;}
-        .cube .bottom {transform: rotateX(90deg) translateZ(-100px); transition: all 1s;}
-        .cube .left {transform: rotateY(90deg) translateZ(-100px); transition: all 1s;}
-        .cube .right {transform: rotateY(90deg) translateZ(100px); transition: all 1s;}
-
-        .cube:hover div {animation: cubeColor 10s infinite linear;}
-
-        .cube:hover .front {transform: translateZ(200px);}
-        .cube:hover .back {transform: translateZ(-200px) rotateY(180deg);}
-        .cube:hover .top {transform: rotateX(90deg) translateZ(200px);}
-        .cube:hover .bottom {transform: rotateX(90deg) translateZ(-200px);}
-        .cube:hover .left {transform: rotateY(90deg) translateZ(-200px);}
-        .cube:hover .right {transform: rotateY(90deg) translateZ(200px);}
-
-        @keyframes cubeRotate {
-          from {transform: rotateX(0deg) rotateY(0deg);}
-            to {transform: rotateX(360deg) rotateY(360deg);}
-        }
-
-        @keyframes cubeColor {
-          0% {background: #D50000;}
-          10% {background: #FF0000;}
-          20% {background: #ff8c00;}
-          30% {background: #fff200;}
-          40% {background: #a5ff00;}
-          50% {background: #00ff0c;}
-          60% {background: #00ffed;}
-          70% {background: #00b6ff;}
-          80% {background: #0800ff;}
-          90% {background: #aa00ff;}
-          100% {background: #ff00c3;}
-        }
-
-        /**.cube {animation-name: cubeRotate; animation-duration: 5s; animation-iteration-count: infinite; animation-timing-function: linear;}**/
-
-      </style>
-
-      <!-- Analytics -->
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51359861-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-51359861-1');
-      </script>
-
-    </head>
-  </body>
-
-  <div class="wrapper">
-
-    <div class="cube">
-      <div class="front">A</div>
-      <div class="back">B</div>
-      <div class="top">C</div>
-      <div class="bottom">D</div>
-      <div class="left">E</div>
-      <div class="right">F</div>
+    <div class="wrapper">
+        <div class="cube">
+            <div class="front">A</div>
+            <div class="back">B</div>
+            <div class="top">C</div>
+            <div class="bottom">D</div>
+            <div class="left">E</div>
+            <div class="right">F</div>
+        </div>
     </div>
-
-  </div><!-- Fine wrapper -->
-
 </html>
